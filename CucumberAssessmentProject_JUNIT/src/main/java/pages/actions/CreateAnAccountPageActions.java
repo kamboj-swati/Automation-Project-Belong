@@ -43,10 +43,15 @@ public class CreateAnAccountPageActions {
 	 */
 	public void generateRandomPassword() {
 		
-		byte[] array = new byte[6]; // length is bounded by 6
-	    new Random().nextBytes(array);
-	    String generatedString = new String(array, Charset.forName("UTF-8"));		
-	    passwordStr = generatedString;
+		String ALPHA_NUMERIC_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
+		StringBuilder testpassword = new StringBuilder();
+        Random rnd = new Random();
+        while (testpassword.length() < 7) { // length of the random string.
+            int index = (int)(Math.random()*ALPHA_NUMERIC_STRING.length());;
+            testpassword.append(ALPHA_NUMERIC_STRING.charAt(index));
+        }
+        passwordStr = testpassword.toString();
+	    System.out.println("Password value is" +passwordStr);
 	}
 
 	/** Method to generate random data to fill in the form
@@ -58,9 +63,10 @@ public class CreateAnAccountPageActions {
 		lastNameStr = new Faker().lastName();
 		addressStr = new Faker().secondaryAddress();		
 		cityStr = new Faker().streetName();
-		zipCodeStr = new Faker().zipCode();
+		zipCodeStr = new Faker().zipCode().substring(0, 5);
 		mPhoneStr = new Faker().phoneNumber().replace("\\(", "").replace("\\)", "").replace("-", "").substring(0, 10);
-				
+		
+		System.out.println("Zip code value is" +zipCodeStr);
 
 	}
 	
